@@ -1,4 +1,5 @@
 const validateCred = require("../src/validateCred");
+const findInvalidCards = require("../src/validateCred");
 
 // All valid credit card numbers
 const valid1 = [4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8]
@@ -39,5 +40,11 @@ describe("validateCred", () => {
         expect(validateCred(invalid3)).toBe(false);
         expect(validateCred(invalid4)).toBe(false);
         expect(validateCred(invalid5)).toBe(false);
+    });
+});
+
+describe("findInvalidCards", () => {
+    test("returns an array of the inalid cards", () => {
+        expect(findInvalidCards(batch)).toEqual(expect.arrayContaining([]));
     });
 });
