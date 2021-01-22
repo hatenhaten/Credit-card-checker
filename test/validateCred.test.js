@@ -1,5 +1,4 @@
-const validateCred = require("../src/validateCred");
-const findInvalidCards = require("../src/validateCred");
+const {validateCred, findInvalidCards, idInvalidCardCompanies} = require("../src/validateCred");
 
 // All valid credit card numbers
 const valid1 = [4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8]
@@ -25,6 +24,10 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3]
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5]
 
+const batch2 = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5]
+
+const invalidBatch = [invalid1, invalid2, invalid3, invalid4, invalid5]
+
 describe("validateCred", () => {
     test("returns true when passed a valid credit card number", () => {
         expect(validateCred(valid1)).toBe(true);
@@ -44,7 +47,13 @@ describe("validateCred", () => {
 });
 
 describe("findInvalidCards", () => {
-    test("returns an array of the inalid cards", () => {
-        expect(findInvalidCards(batch)).toEqual(expect.arrayContaining([]));
+    test("returns an array of the invalid cards", () => {
+        expect(findInvalidCards(batch2)).toEqual(expect.arrayContaining([invalid1, invalid2, invalid3, invalid4, invalid5]));
+    });
+});
+
+describe("idInvalidCardCompanies", () => {
+    test("returns an array of the invalid card companies without duplicates", () => {
+        expect(idInvalidCardCompanies(invalidBatch)).toMatchObject(["Visa", "Mastercard", "Amex", "Discover"]);
     });
 });
